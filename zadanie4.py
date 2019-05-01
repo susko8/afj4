@@ -47,7 +47,6 @@ for i in range(0, len(regex)):
                         operand = automata_stack.pop()
                         automata_stack.pop()
                         dka_constructor_instructions.append('I,' + operand.__str__())
-                        symbol_stack.append(len(dka_constructor_instructions) - 1)
                     else:
                         operand1 = automata_stack.pop()
                         operation = automata_stack.pop()
@@ -57,14 +56,11 @@ for i in range(0, len(regex)):
                             operand2 = automata_stack.pop()
                         if operation is ".":
                             dka_constructor_instructions.append('C,' + operand1.__str__() + ',' + operand2.__str__())
-                            symbol_stack.append(len(dka_constructor_instructions) - 1)
                         else:
                             dka_constructor_instructions.append('U,' + operand1.__str__() + ',' + operand2.__str__())
-                            symbol_stack.append(len(dka_constructor_instructions) - 1)
-                        # TODO problem pri poslednom unione, najskor treba asi prekrokovat cely algoritmus, uje uje uje ujebalo dekel pri viacnasobnom spajani operacii
-                        # podla vsetkeho chyba v symbolstacku
                         if len(automata_stack) is not 0:
                             automata_stack[-1] = len(dka_constructor_instructions)-1
+                symbol_stack.append(len(dka_constructor_instructions) - 1)
                 break
             if char in operations or isinstance(char, int):
                 automata_stack.append(char)
@@ -73,4 +69,5 @@ print('automata_stack', automata_stack)
 print('instr', dka_constructor_instructions)
 
 # dka_constructor_instructions = ['a', 'I,0', 'b', 'C,0,1', 'C,3,2', 'I,2', 'C,0,5', 'C,6,2', 'U,4,7']
-# ir.read(dka_constructor_instructions)
+#################################['a', 'I,0', 'b', 'C,0,1', 'C,3,2', 'I,2', 'C,0,5', 'C,6,2', 'U,4,7']
+ir.read(dka_constructor_instructions)
