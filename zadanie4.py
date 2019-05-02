@@ -15,28 +15,27 @@ dka_constructor_instructions = []
 
 # Pozor na indexovanie riadkov, treba od 1 aby to bolo kompatibilne
 
-# instruction_index = 1
-
 for i in range(0, len(regex)):
     # detekcia zretazenia v regexe a pridanie bodiek na miesta kde dochadza k zretazeniu
     symbol_stack.append(regex[i])
-    if regex[i].isdigit() or regex[i].isalpha() or regex[i] is ' ':
-        automata_stack.append(regex[i])
-        while automata_stack:
-            symbol = automata_stack.pop()
-            symbol_stack.pop()
-            if symbol not in dka_constructor_instructions:
-                dka_constructor_instructions.append(symbol)
-            if isinstance(symbol_stack[-1], int):
+    if symbol_stack[-1] is not ')':
+        if regex[i].isdigit() or regex[i].isalpha() or regex[i] is ' ':
+            automata_stack.append(regex[i])
+            while automata_stack:
+                symbol = automata_stack.pop()
+                symbol_stack.pop()
+                if symbol not in dka_constructor_instructions:
+                    dka_constructor_instructions.append(symbol)
+                if isinstance(symbol_stack[-1], int):
+                    symbol_stack.append('.')
+                symbol_stack.append(dka_constructor_instructions.index(symbol))
+        if i < len(regex) - 1:
+            if ((regex[i].isalpha() or regex[i].isdigit())
+                and (regex[i + 1].isalpha() or regex[i + 1].isdigit() or regex[i + 1] is '(')) \
+                    or (regex[i] is ')' and regex[i + 1] is '('):
                 symbol_stack.append('.')
-            symbol_stack.append(dka_constructor_instructions.index(symbol))
-    if i < len(regex) - 1:
-        if ((regex[i].isalpha() or regex[i].isdigit())
-            and (regex[i + 1].isalpha() or regex[i + 1].isdigit() or regex[i + 1] is '(')) \
-                or (regex[i] is ')' and regex[i + 1] is '('):
-            symbol_stack.append('.')
-    else:
-        symbol_stack.append(regex[i])
+        else:
+            symbol_stack.append(regex[i])
     # operacie lebo zatvorka
     if regex[i] is ')':
         while True:
@@ -59,8 +58,11 @@ for i in range(0, len(regex)):
                         else:
                             dka_constructor_instructions.append('U,' + operand1.__str__() + ',' + operand2.__str__())
                         if len(automata_stack) is not 0:
-                            automata_stack[-1] = len(dka_constructor_instructions)-1
+                            automata_stack[-1] = len(dka_constructor_instructions) - 1
                 symbol_stack.append(len(dka_constructor_instructions) - 1)
+                if i < len(regex) - 1:
+                    if regex[i + 1] is '(':
+                        symbol_stack.append('.')
                 break
             if char in operations or isinstance(char, int):
                 automata_stack.append(char)
