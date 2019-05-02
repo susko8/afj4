@@ -10,7 +10,6 @@ def read_file():
         sys.exit()
 
     filename = str(sys.argv[1])
-    filename = 'regex5.txt'
     file = open(filename, 'r')
     filecontent = file.read().splitlines()
     file.close()
