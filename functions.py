@@ -34,7 +34,7 @@ def epsilon_clsr(automata, states, edge_name):
                 break
             if key2 in state2.edges['']:
                 result.append(automata_states[key2])
-    for i in range(1, len(automata.states) ** 2):
+    for i in range(1, len(automata.states) + 50):
         for key2, value in automata_states.items():
             for state2 in result:
                 if key2 == state2.index:
@@ -143,6 +143,7 @@ def create_one_symbol_nka(symbol, automata_index, qindex):
     states = {init_state.index: init_state, symbol_state.index: symbol_state}
     automata = NKAutomata(states, symbol)
     return automata, qindex
+
 
 def nka_union(nka1, nka2, automata_index, qindex):
     in_nka1 = copy.deepcopy(nka1)

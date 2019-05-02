@@ -2,15 +2,15 @@ import sys
 
 
 def read_file():
-    # if len(sys.argv) == 3:
-    #     print('Argumenty ok, vstupny subor:', str(sys.argv[1]), ', nka vysledny:', str(sys.argv[2]))
-    # else:
-    #     print('Chyba nespravne spustenie skriptu: zadajte interpreter "meno suboru na konverziu" "meno vystupneho '
-    #           'suboru"')
-    #     sys.exit()
+    if len(sys.argv) == 3:
+        print('Argumenty ok, vstupny subor:', str(sys.argv[1]), ', nka vysledny:', str(sys.argv[2]))
+    else:
+        print('Chyba nespravne spustenie skriptu: zadajte interpreter "meno suboru na konverziu" "meno vystupneho '
+              'suboru"')
+        sys.exit()
 
-    # filename = str(sys.argv[1])
-    filename = 'regex3.txt'
+    filename = str(sys.argv[1])
+    filename = 'regex5.txt'
     file = open(filename, 'r')
     filecontent = file.read().splitlines()
     file.close()

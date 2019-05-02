@@ -72,4 +72,5 @@ print('instr', dka_constructor_instructions)
 
 # dka_constructor_instructions = ['a', 'I,0', 'b', 'C,0,1', 'C,3,2', 'I,2', 'C,0,5', 'C,6,2', 'U,4,7']
 #################################['a', 'I,0', 'b', 'C,0,1', 'C,3,2', 'I,2', 'C,0,5', 'C,6,2', 'U,4,7']
+print('Pockajte prosim, kedze programujem neefektivne vypocet moze chvilu trvat')
 ir.read(dka_constructor_instructions)
